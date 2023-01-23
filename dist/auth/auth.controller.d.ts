@@ -4,5 +4,5 @@ export declare class AuthController {
     private authService;
     constructor(authService: AuthService);
     signup(dto: Authdto): Promise<import(".prisma/client").User>;
-    signin(): string;
+    signin(dto: Authdto): Promise<import(".prisma/client").User>;
 }

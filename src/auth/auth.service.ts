@@ -31,7 +31,7 @@ export class AuthService{
                 // } //only these are returned from the database.
             });
             
-            delete user.hash;
+            delete user.hash; //we are deleting this because password should not be shown.
 
             //return the saved user
             return user;
@@ -47,7 +47,24 @@ export class AuthService{
             }
         }
     }
-    signin(){
-        return 'I am SignedIn!!'
+    async signin(dto: Authdto){
+        //find the user by email
+        const user = await this.prisma.user.findUnique({
+            where:{
+                email: dto.email,
+            },
+        });
+        //if user do not exist thhrow an error
+        if(!user) 
+            throw new ForbiddenException('Credentials incorrect!');
+
+        //compare the passwords
+        const pwMatches = await argon.verify(user.hash, dto.password);
+
+        if(!pwMatches) 
+            throw new ForbiddenException('Password incorrect!');
+
+        delete user.hash;
+        return user;
     }
 }
