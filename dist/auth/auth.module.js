@@ -12,6 +12,7 @@ const jwt_1 = require("@nestjs/jwt");
 const prisma_module_1 = require("../prisma/prisma.module");
 const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
+const strategy_1 = require("./strategy");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -21,7 +22,7 @@ AuthModule = __decorate([
             jwt_1.JwtModule.register({})
         ],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService]
+        providers: [auth_service_1.AuthService, strategy_1.JwtStrategy]
     })
 ], AuthModule);
 exports.AuthModule = AuthModule;

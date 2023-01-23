@@ -5,7 +5,9 @@ import { Authdto } from "./dto";
 
 @Controller('auth')
 export class AuthController{
-    constructor(private authService: AuthService) {}
+    constructor(
+        private authService: AuthService,
+        ) {}
         // this.authService.test(); //calling the test function from the auth.service.ts this is called dependency injection
     
         @Post('signup')
